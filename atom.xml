@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>傅先生的博客</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-05-11T03:29:52.493Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>fuliang</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>网易前端面试</title>
+    <link href="http://yoursite.com/2020/05/10/%E7%BD%91%E6%98%93%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/"/>
+    <id>http://yoursite.com/2020/05/10/%E7%BD%91%E6%98%93%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/</id>
+    <published>2020-05-10T15:09:57.000Z</published>
+    <updated>2020-05-11T03:29:52.493Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="题目4"><a href="#题目4" class="headerlink" title="题目4"></a>题目4</h3><p><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200510231106.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;题目4&quot;&gt;&lt;a href=&quot;#题目4&quot; class=&quot;headerlink&quot; title=&quot;题目4&quot;&gt;&lt;/a&gt;题目4&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;http://qa2hyo53v.bkt.clouddn.com/image/20200510231106.pn
+      
+    
+    </summary>
+    
+    
+      <category term="面试" scheme="http://yoursite.com/categories/%E9%9D%A2%E8%AF%95/"/>
+    
+    
+      <category term="面试" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo记录</title>
+    <link href="http://yoursite.com/2020/05/10/hexo%E8%AE%B0%E5%BD%95/"/>
+    <id>http://yoursite.com/2020/05/10/hexo%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-05-10T07:51:34.000Z</published>
+    <updated>2020-05-11T04:08:13.125Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题1：hexo博客出现“Cannot-GET-xxxx”的错误"><a href="#问题1：hexo博客出现“Cannot-GET-xxxx”的错误" class="headerlink" title="问题1：hexo博客出现“Cannot GET/xxxx”的错误"></a>问题1：hexo博客出现“Cannot GET/xxxx”的错误</h2><p>原因是没有初始化分类的子目录。<br>在控制台输入，如：hexo new page “categories”，初始化分类目录。<br>就会在source文件里面初始化这些目录，并生成一个index文件。<br><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200511113359.png" alt=""><br>这样的话就可以使用对应功能了。不会出现“Cannot GET/xxxx”的错误。</p><h2 id="博客部署GitHub流程"><a href="#博客部署GitHub流程" class="headerlink" title="博客部署GitHub流程"></a>博客部署GitHub流程</h2><p>第一步：在github新建一个项目<br>登录注册github以后再首页左上角点击<code>new</code>按钮，进入新建项目页面<br><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200511115506.png" alt=""><br>然后填写仓库信息，仓库名必须要遵守格式：账户名.github.io，不然接下来会有很多麻烦<br><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200511120352.png" alt=""><br>在建好的仓库右侧有个settings按钮，点击它<br><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200511120456.png" alt=""><br>向下拉到GitHub Pages，你会看到有个网址，访问它<br><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200511120524.png" alt=""><br>你将会惊奇的发现该项目已经被部署到网络上，能够通过外网来访问它，当然里面还很空什么东西都没有。 该地址就是你的博客默认地址，你也可以购买域名，将其换成你喜欢的地址。</p><p>第二步</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;问题1：hexo博客出现“Cannot-GET-xxxx”的错误&quot;&gt;&lt;a href=&quot;#问题1：hexo博客出现“Cannot-GET-xxxx”的错误&quot; class=&quot;headerlink&quot; title=&quot;问题1：hexo博客出现“Cannot GET/xxxx
+      
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+  </entry>
+  
+</feed>
