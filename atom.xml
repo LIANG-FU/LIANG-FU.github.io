@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-05-12T14:29:33.919Z</updated>
+  <updated>2020-05-15T16:58:34.339Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,246 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JQuery和Vue实现递归生成树状菜单</title>
+    <link href="http://yoursite.com/2020/05/16/JQuery%E5%92%8CVue%E5%AE%9E%E7%8E%B0%E9%80%92%E5%BD%92%E7%94%9F%E6%88%90%E6%A0%91%E7%8A%B6%E8%8F%9C%E5%8D%95/"/>
+    <id>http://yoursite.com/2020/05/16/JQuery%E5%92%8CVue%E5%AE%9E%E7%8E%B0%E9%80%92%E5%BD%92%E7%94%9F%E6%88%90%E6%A0%91%E7%8A%B6%E8%8F%9C%E5%8D%95/</id>
+    <published>2020-05-15T16:31:27.000Z</published>
+    <updated>2020-05-15T16:58:34.339Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200516005828.png" alt=""></p><h2 id="Jquery实现"><a href="#Jquery实现" class="headerlink" title="Jquery实现"></a>Jquery实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list"</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script src="https:/</span><span class="regexp">/www.jq22.com/</span>jquery/jquery<span class="number">-3.3</span><span class="number">.1</span>.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;script&gt;</span></span><br><span class="line"><span class="string">    let data = [</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">            name:"</span>第一级<span class="string">",</span></span><br><span class="line"><span class="string">            children:[</span></span><br><span class="line"><span class="string">                &#123;</span></span><br><span class="line"><span class="string">                    name:"</span>第二级<span class="string">"</span></span><br><span class="line"><span class="string">                &#125;,</span></span><br><span class="line"><span class="string">                &#123;</span></span><br><span class="line"><span class="string">                    name:"</span>第二级<span class="string">",</span></span><br><span class="line"><span class="string">                    children:[</span></span><br><span class="line"><span class="string">                        &#123;</span></span><br><span class="line"><span class="string">                            name:"</span>第三级<span class="string">"</span></span><br><span class="line"><span class="string">                        &#125;,</span></span><br><span class="line"><span class="string">                        &#123;</span></span><br><span class="line"><span class="string">                            name:"</span>第三级<span class="string">",</span></span><br><span class="line"><span class="string">                            </span></span><br><span class="line"><span class="string">                        &#125;</span></span><br><span class="line"><span class="string">                    ]</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            ]</span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">            name:"</span>第一级<span class="string">"</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">    function setList(data,dom)&#123;</span></span><br><span class="line"><span class="string">        let ul = $('&lt;ul&gt;')</span></span><br><span class="line"><span class="string">        data.forEach(item =&gt; &#123;</span></span><br><span class="line"><span class="string">            let li = $(`&lt;li&gt;$&#123;item.name&#125;&lt;/li&gt;`)</span></span><br><span class="line"><span class="string">            if(item.children)&#123;</span></span><br><span class="line"><span class="string">                setList(item.children,li)</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            ul.append(li)</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string">        dom.append(ul)</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    setList(data,$("</span>.list<span class="string">"))</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure><h2 id="Vue实现"><a href="#Vue实现" class="headerlink" title="Vue实现"></a>Vue实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;list-item :data=<span class="string">"list"</span>&gt;&lt;<span class="regexp">/list-item&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;script src=<span class="string">"https://cdn.jsdelivr.net/npm/vue/dist/vue.js"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    Vue.component('listItem', &#123; </span></span><br><span class="line"><span class="regexp">        props:['data'],</span></span><br><span class="line"><span class="regexp">        template:`</span></span><br><span class="line"><span class="regexp">            &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">                &lt;li v-for="item in data"&gt;</span></span><br><span class="line"><span class="regexp">                    &#123;&#123;item.name&#125;&#125;</span></span><br><span class="line"><span class="regexp">                    &lt;listItem v-if="item.children" :data="item.children"&gt;&lt;/</span>listItem&gt;</span><br><span class="line">                &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/u</span>l&gt;</span><br><span class="line">        <span class="string">`</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    var vm = new Vue(&#123;</span></span><br><span class="line"><span class="string">    // 选项</span></span><br><span class="line"><span class="string">        el:"#app",</span></span><br><span class="line"><span class="string">        data: &#123;</span></span><br><span class="line"><span class="string">            list:[</span></span><br><span class="line"><span class="string">                &#123;</span></span><br><span class="line"><span class="string">                    name:"第一级",</span></span><br><span class="line"><span class="string">                    children:[</span></span><br><span class="line"><span class="string">                        &#123;</span></span><br><span class="line"><span class="string">                            name:"第二级"</span></span><br><span class="line"><span class="string">                        &#125;,</span></span><br><span class="line"><span class="string">                        &#123;</span></span><br><span class="line"><span class="string">                            name:"第二级",</span></span><br><span class="line"><span class="string">                            children:[</span></span><br><span class="line"><span class="string">                                &#123;</span></span><br><span class="line"><span class="string">                                    name:"第三级"</span></span><br><span class="line"><span class="string">                                &#125;,</span></span><br><span class="line"><span class="string">                                &#123;</span></span><br><span class="line"><span class="string">                                    name:"第三级",</span></span><br><span class="line"><span class="string">                                    </span></span><br><span class="line"><span class="string">                                &#125;</span></span><br><span class="line"><span class="string">                            ]</span></span><br><span class="line"><span class="string">                        &#125;</span></span><br><span class="line"><span class="string">                    ]</span></span><br><span class="line"><span class="string">                &#125;,</span></span><br><span class="line"><span class="string">                </span></span><br><span class="line"><span class="string">                &#123;</span></span><br><span class="line"><span class="string">                    name:"第一级"</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            ]</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;效果&quot;&gt;&lt;a href=&quot;#效果&quot; class=&quot;headerlink&quot; title=&quot;效果&quot;&gt;&lt;/a&gt;效果&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://qa2hyo53v.bkt.clouddn.com/image/20200516005828.png&quot; a
+      
+    
+    </summary>
+    
+    
+    
+      <category term="面试" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>css选择符属性继承优先级算法以及css3新增伪类新特性</title>
+    <link href="http://yoursite.com/2020/05/15/css%E9%80%89%E6%8B%A9%E7%AC%A6%E5%B1%9E%E6%80%A7%E7%BB%A7%E6%89%BF%E4%BC%98%E5%85%88%E7%BA%A7%E7%AE%97%E6%B3%95%E4%BB%A5%E5%8F%8Acss3%E6%96%B0%E5%A2%9E%E4%BC%AA%E7%B1%BB%E6%96%B0%E7%89%B9%E6%80%A7/"/>
+    <id>http://yoursite.com/2020/05/15/css%E9%80%89%E6%8B%A9%E7%AC%A6%E5%B1%9E%E6%80%A7%E7%BB%A7%E6%89%BF%E4%BC%98%E5%85%88%E7%BA%A7%E7%AE%97%E6%B3%95%E4%BB%A5%E5%8F%8Acss3%E6%96%B0%E5%A2%9E%E4%BC%AA%E7%B1%BB%E6%96%B0%E7%89%B9%E6%80%A7/</id>
+    <published>2020-05-15T13:12:15.000Z</published>
+    <updated>2020-05-15T13:12:44.523Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="CSS-选择符："><a href="#CSS-选择符：" class="headerlink" title="CSS 选择符："></a>CSS 选择符：</h2><p>id选择器(# myid)<br>类选择器(.myclassname)<br>标签选择器(div, h1, p)<br>相邻选择器(h1 + p)<br>子选择器(ul &gt; li)<br>后代选择器(li a)<br>通配符选择器( * )<br>属性选择器(a[rel = “external”])<br>伪类选择器(a: hover, li:nth-child)</p><h3 id="优先级算法："><a href="#优先级算法：" class="headerlink" title="优先级算法："></a>优先级算法：</h3><p>优先级就近原则，同权重情况下样式定义最近者为准;<br>载入样式以最后载入的定位为准;<br>!important &gt; id &gt; class &gt; tag<br>important 比 内联优先级高，但内联比 id 要高</p><h3 id="CSS3新增伪类举例："><a href="#CSS3新增伪类举例：" class="headerlink" title="CSS3新增伪类举例："></a>CSS3新增伪类举例：</h3><p>p:first-of-type 选择属于其父元素的首个 p 元素的每个 p 元素。<br>p:last-of-type 选择属于其父元素的最后 p 元素的每个 p元素。<br>p:only-of-type 选择属于其父元素唯一的 p元素的每个 p 元素。<br>p:only-child 选择属于其父元素的唯一子元素的每个p 元素。<br>p:nth-child(2) 选择属于其父元素的第二个子元素的每个p 元素。<br>:enabled :disabled 控制表单控件的禁用状态。<br>:checked 单选框或复选框被选中。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;CSS-选择符：&quot;&gt;&lt;a href=&quot;#CSS-选择符：&quot; class=&quot;headerlink&quot; title=&quot;CSS 选择符：&quot;&gt;&lt;/a&gt;CSS 选择符：&lt;/h2&gt;&lt;p&gt;id选择器(# myid)&lt;br&gt;类选择器(.myclassname)&lt;br&gt;标签选择器(d
+      
+    
+    </summary>
+    
+    
+    
+      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>link和@import的区别</title>
+    <link href="http://yoursite.com/2020/05/15/link%E5%92%8C-import%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://yoursite.com/2020/05/15/link%E5%92%8C-import%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
+    <published>2020-05-15T10:44:10.000Z</published>
+    <updated>2020-05-15T12:59:01.829Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们都知道，外部引入 CSS 有2种方式，link标签和@import。<br>它们有何本质区别，有何使用建议，在考察外部引入 CSS 这部分内容时，经常被提起。<br>强烈建议使用link标签，慎用@import方式。<br>这样可以避免考虑@import的语法规则和注意事项，避免产生资源文件下载顺序混乱和http请求过多的烦恼。</p><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><h4 id="1-从属关系区别"><a href="#1-从属关系区别" class="headerlink" title="1.从属关系区别"></a>1.从属关系区别</h4><p>@import是 CSS 提供的语法规则，只有导入样式表的作用；link是HTML提供的标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等。</p><h4 id="2-加载顺序区别"><a href="#2-加载顺序区别" class="headerlink" title="2.加载顺序区别"></a>2.加载顺序区别</h4><p>加载页面时，link标签引入的 CSS 被同时加载；@import引入的 CSS 将在页面加载完毕后被加载。</p><h4 id="3-兼容性区别"><a href="#3-兼容性区别" class="headerlink" title="3.兼容性区别"></a>3.兼容性区别</h4><p>@import是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；link标签作为 HTML 元素，不存在兼容性问题。</p><h4 id="4-DOM可控性区别"><a href="#4-DOM可控性区别" class="headerlink" title="4.DOM可控性区别"></a>4.DOM可控性区别</h4><p>可以通过 JS 操作 DOM ，插入link标签来改变样式；由于 DOM 方法是基于文档的，无法使用@import的方式插入样式。</p><h4 id="5-权重区别-该项有争议，下文将详解"><a href="#5-权重区别-该项有争议，下文将详解" class="headerlink" title="5.权重区别(该项有争议，下文将详解)"></a>5.权重区别(该项有争议，下文将详解)</h4><p>link引入的样式权重大于@import引入的样式。</p><h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><p>@import一定要写在除@charset外的其他任何 CSS 规则之前，如果置于其它位置将会被浏览器忽略，而且，在@import之后如果存在其它样式，则@import之后的分号是必须书写，不可省略的</p><p>浏览器执行过程可以简单分为加载、解析、渲染，这三个步骤。</p><p>加载：根据请求的URL进行域名解析，向服务器发送请求，接收响应文件（如 HTML、JS、CSS、图片等）。</p><p>解析：对加载到的资源（HTML、JS、CSS等）进行语法解析，构建相应的内部数据结构（比如HTML的DOM树，JS对象的属性表，CSS的样式规则等）。</p><p>渲染：构建渲染树，对各个元素进行位置计算、样式计算等，然后根据渲染树完成页面布局及绘制的过程（可以理解为“画”页面元素）。</p><p>这几个过程不是完全孤立的，会有交叉，比如HTML加载后就会进行解析，然后拉取HTML中指定的CSS、JS等。`</p><p>现在，我们应该已经了解了加载和渲染的概念，明白它们是两个不同的过程，那么对上文中抛出的疑问继续追问：</p><p>link先于@import加载，是不是也先于@import渲染呢？</p><p>实际上，渲染的动作一般都会执行多次，最后一次渲染，一定是依据之前加载过的所有样式整合后的渲染树进行绘制页面的，已经被渲染过的页面元素，也会被重新渲染。</p><p>那么我们就可以把@import这种导入 CSS 文件的方式理解成一种替换，CSS 解析引擎在对一个 CSS 文件进行解析时，如在文件顶部遇到@import，将被替换为该@import导入的 CSS 文件中的全部样式。</p><p>峰回路转，柳暗花明，终于弄明白为何@import引入的样式，会被层叠掉了。其虽然后被加载，却会在加载完毕后置于样式表顶部，最终渲染时自然会被下面的同名样式层叠。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;我们都知道，外部引入 CSS 有2种方式，link标签和@import。&lt;br&gt;它们有何本质区别，有何使用建议，在考察外部引入 CSS 这部分内容时，经常被提起。&lt;br&gt;强烈建议使用link标签，慎用@import方式。&lt;br&gt;这样可以避免考虑@import的语法规则和注意
+      
+    
+    </summary>
+    
+    
+    
+      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uni-app学习笔记</title>
+    <link href="http://yoursite.com/2020/05/15/uni-app%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2020/05/15/uni-app%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2020-05-15T04:46:21.000Z</published>
+    <updated>2020-05-15T10:01:36.406Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="编译运行"><a href="#编译运行" class="headerlink" title="编译运行"></a>编译运行</h2><h4 id="找到文件目录的办法"><a href="#找到文件目录的办法" class="headerlink" title="找到文件目录的办法"></a>找到文件目录的办法</h4><p>HBuild要在微信开发平台或者其他开发平台一般都要指定对应开发平台的安装目录，常常我们安装文件以后只能在桌面找到快捷方式，那如何查看文件的位置呢？<br>方法：快捷方式图标鼠标右击选择属性，如下图，目标就是点击这个快捷方式运行的可执行文件，起始位置就是这个程序所在的目录，对于微信开发者工具来说就是微信开发者工具所在的文件夹，在提示输入或者选择微信开发者工具所在的文件夹的时候选择这个文件夹即可<br><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200515125432.png" alt=""></p><h4 id="报错：HBuild运行时打开微信小程序报错"><a href="#报错：HBuild运行时打开微信小程序报错" class="headerlink" title="报错：HBuild运行时打开微信小程序报错"></a>报错：HBuild运行时打开微信小程序报错</h4><p><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200515124819.png" alt=""><br>原因：开发者工具没有设置服务端口<br>解决办法：打开微信开发者工具，在项目管理界面点击左上角设置图标，点击安全，将服务端口打开，这样就可以运行了<br><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200515124924.png" alt=""><br><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200515125051.png" alt=""></p><h4 id="坑"><a href="#坑" class="headerlink" title="坑:"></a>坑:</h4><p><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200515180130.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;编译运行&quot;&gt;&lt;a href=&quot;#编译运行&quot; class=&quot;headerlink&quot; title=&quot;编译运行&quot;&gt;&lt;/a&gt;编译运行&lt;/h2&gt;&lt;h4 id=&quot;找到文件目录的办法&quot;&gt;&lt;a href=&quot;#找到文件目录的办法&quot; class=&quot;headerlink&quot; title=
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>日积月累之随笔01</title>
+    <link href="http://yoursite.com/2020/05/15/%E6%97%A5%E8%AE%B0%E6%9C%88%E7%B4%AF%E4%B9%8B%E9%9A%8F%E7%AC%9401/"/>
+    <id>http://yoursite.com/2020/05/15/%E6%97%A5%E8%AE%B0%E6%9C%88%E7%B4%AF%E4%B9%8B%E9%9A%8F%E7%AC%9401/</id>
+    <published>2020-05-15T04:01:30.000Z</published>
+    <updated>2020-05-15T04:04:42.941Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="2020-5-15"><a href="#2020-5-15" class="headerlink" title="2020-5-15"></a>2020-5-15</h3><p>箭头函数看上去是匿名函数的一种简写，但实际上，箭头函数和匿名函数有个明显的区别：箭头函数内部的this是词法作用域，由上下文确定。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;2020-5-15&quot;&gt;&lt;a href=&quot;#2020-5-15&quot; class=&quot;headerlink&quot; title=&quot;2020-5-15&quot;&gt;&lt;/a&gt;2020-5-15&lt;/h3&gt;&lt;p&gt;箭头函数看上去是匿名函数的一种简写，但实际上，箭头函数和匿名函数有个明显的区别：箭头
+      
+    
+    </summary>
+    
+    
+    
+      <category term="积累" scheme="http://yoursite.com/tags/%E7%A7%AF%E7%B4%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网易二面</title>
+    <link href="http://yoursite.com/2020/05/14/%E7%BD%91%E6%98%93%E4%BA%8C%E9%9D%A2/"/>
+    <id>http://yoursite.com/2020/05/14/%E7%BD%91%E6%98%93%E4%BA%8C%E9%9D%A2/</id>
+    <published>2020-05-14T03:34:35.000Z</published>
+    <updated>2020-05-14T14:01:49.752Z</updated>
+    
+    <content type="html"><![CDATA[<p>问题一：403表示什么？<br>问题：Vue的原理<br>问题：对HTTP的了解<br>问题：对块级作用域的理解<br>问题二：职业规划<br>问题三：实习期待</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;问题一：403表示什么？&lt;br&gt;问题：Vue的原理&lt;br&gt;问题：对HTTP的了解&lt;br&gt;问题：对块级作用域的理解&lt;br&gt;问题二：职业规划&lt;br&gt;问题三：实习期待&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>手写防抖和节流</title>
+    <link href="http://yoursite.com/2020/05/13/%E6%89%8B%E5%86%99%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/"/>
+    <id>http://yoursite.com/2020/05/13/%E6%89%8B%E5%86%99%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/</id>
+    <published>2020-05-13T10:43:32.000Z</published>
+    <updated>2020-05-13T11:30:24.077Z</updated>
+    
+    <content type="html"><![CDATA[<p>想要理解防抖和节流可以先看看这篇博客：<a href="https://www.cnblogs.com/hity-tt/p/7852888.html" target="_blank" rel="noopener">https://www.cnblogs.com/hity-tt/p/7852888.html</a></p><h2 id="手写防抖方法："><a href="#手写防抖方法：" class="headerlink" title="手写防抖方法："></a>手写防抖方法：</h2><p>防抖实现思路，设置开关，通过判断开关开闭决定是否执行函数，执行函数后开关关闭，通过定时器规定一定时间开启开关，如果多次触发设置了防抖的事件，定时器重新计时，让事件只在多次点击情况下只触发一次</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">Fn,delay,ctx,immediate</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 执行开关</span></span><br><span class="line">    <span class="keyword">let</span> immediate = immediate || <span class="literal">false</span></span><br><span class="line">    <span class="comment">// 保存定时器</span></span><br><span class="line">    <span class="keyword">let</span> movement = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 判断开关是否打开</span></span><br><span class="line">        <span class="keyword">if</span>(immediate)&#123;</span><br><span class="line">            Fn.apply(ctx,<span class="built_in">arguments</span>)</span><br><span class="line">            <span class="comment">// 执行了函数，将开关关闭</span></span><br><span class="line">            immediate = <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 清空上次的定时器</span></span><br><span class="line">        clearTimeout(movement)</span><br><span class="line">        <span class="comment">// 重新开始定时器</span></span><br><span class="line">        movement = setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="comment">// 将开关打开</span></span><br><span class="line">            immediate = <span class="literal">true</span></span><br><span class="line">        &#125;,delay)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="手写节流："><a href="#手写节流：" class="headerlink" title="手写节流："></a>手写节流：</h2><p>这里用到了闭包的概念，也就是说节流就是闭包的一个应用</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一种：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">Fn,delay</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 利用闭包特性保存上次执行的时间</span></span><br><span class="line">    <span class="keyword">let</span> pre = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> cur = <span class="built_in">Date</span>.now()</span><br><span class="line">        <span class="keyword">if</span>(cur-per&gt;delay)&#123;</span><br><span class="line">            <span class="comment">// 执行函数</span></span><br><span class="line">            Fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">            <span class="comment">// 改变闭包中的变量</span></span><br><span class="line">            per = cur</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 第二种：</span></span><br><span class="line"><span class="comment">// 限频，每delay的时间执行一次 </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, delay, ctx</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isAvail = <span class="literal">true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 开关打开时，执行任务</span></span><br><span class="line">        <span class="keyword">if</span> (isAvail) &#123;</span><br><span class="line">            fn.apply(ctx, <span class="built_in">arguments</span>)</span><br><span class="line">            isAvail = <span class="literal">false</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// delay时间之后，任务开关打开</span></span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                isAvail = <span class="literal">true</span></span><br><span class="line">            &#125;, delay)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;想要理解防抖和节流可以先看看这篇博客：&lt;a href=&quot;https://www.cnblogs.com/hity-tt/p/7852888.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/hity-t
+      
+    
+    </summary>
+    
+    
+      <category term="js" scheme="http://yoursite.com/categories/js/"/>
+    
+    
+      <category term="手写js" scheme="http://yoursite.com/tags/%E6%89%8B%E5%86%99js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>手写reduce</title>
+    <link href="http://yoursite.com/2020/05/13/%E6%89%8B%E5%86%99reduce/"/>
+    <id>http://yoursite.com/2020/05/13/%E6%89%8B%E5%86%99reduce/</id>
+    <published>2020-05-13T04:49:56.000Z</published>
+    <updated>2020-05-13T04:59:46.144Z</updated>
+    
+    <content type="html"><![CDATA[<p>首先来看一个例子：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">let</span> sum = arr.reduce(<span class="function">(<span class="params">cur,next</span>)=&gt;</span>&#123;</span><br><span class="line">    cur+=next</span><br><span class="line">    <span class="keyword">return</span> cur</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(sum)</span><br></pre></td></tr></table></figure><p>手写自己的reduce</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.myReduce() = <span class="function"><span class="keyword">function</span> (<span class="params">callback, init</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> accumu = init ? init : <span class="keyword">this</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = init ? <span class="number">0</span> : <span class="number">1</span>; i &lt; <span class="keyword">this</span>.length; i++) &#123;</span><br><span class="line">    accumu = callback(accumu,<span class="keyword">this</span>[i])</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> accumu</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;首先来看一个例子：&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;
+      
+    
+    </summary>
+    
+    
+    
+      <category term="手写js" scheme="http://yoursite.com/tags/%E6%89%8B%E5%86%99js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>手写new</title>
+    <link href="http://yoursite.com/2020/05/13/%E6%89%8B%E5%86%99new/"/>
+    <id>http://yoursite.com/2020/05/13/%E6%89%8B%E5%86%99new/</id>
+    <published>2020-05-13T04:25:29.000Z</published>
+    <updated>2020-05-13T04:46:23.246Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、new操作中发生了什么？"><a href="#一、new操作中发生了什么？" class="headerlink" title="一、new操作中发生了什么？"></a>一、new操作中发生了什么？</h3><p>比较直观的感觉，当我们new一个构造函数，得到的实例继承了构造器的构造属性(this.name这些)以及原型上的属性。</p><p>在《JavaScript模式》这本书中，new的过程说的比较直白，当我们new一个构造器，主要有三步：</p><p>• 创建一个空对象，将它的引用赋给 this，继承函数的原型。<br>• 通过 this 将属性和方法添加至这个对象<br>• 最后返回 this 指向的新对象，也就是实例（如果没有手动返回其他的对象）</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line">Dog.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_new</span>(<span class="params">fn,...args</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//1.创建一个新对象，赋予this，这一步是隐性的，</span></span><br><span class="line">    <span class="comment">// this.obj = &#123;&#125;</span></span><br><span class="line">    <span class="comment">// Object.setPrototypeOf(this.obj,fn.prototype)</span></span><br><span class="line">    <span class="keyword">const</span> obj = <span class="built_in">Object</span>.create(fn.prototype) <span class="comment">// //fn.prototype代表 用当前对象的原型去创建</span></span><br><span class="line">    <span class="comment">//现在obj就代表Dog了,但是参数和this指向没有修改</span></span><br><span class="line">    <span class="keyword">const</span> rel = fn.apply(obj,args)</span><br><span class="line">    <span class="comment">//正常规定,如何fn返回的是null或undefined(也就是不返回内容),我们返回的是obj,否则返回rel</span></span><br><span class="line">    <span class="keyword">return</span> rel <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? rel : obj</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> _newDog = _new(Dog,<span class="string">'这是用_new出来的小狗'</span>)</span><br><span class="line">_newDog.sayName()</span><br></pre></td></tr></table></figure><h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>new的具体步骤<br>创建一个空对象 var obj = {}<br>修改obj.<strong>proto</strong>=Dog.prototype<br>只改this指向并且把参数传递过去,call和apply都可以<br>根据规范，返回 null 和 undefined 不处理，依然返回obj</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;一、new操作中发生了什么？&quot;&gt;&lt;a href=&quot;#一、new操作中发生了什么？&quot; class=&quot;headerlink&quot; title=&quot;一、new操作中发生了什么？&quot;&gt;&lt;/a&gt;一、new操作中发生了什么？&lt;/h3&gt;&lt;p&gt;比较直观的感觉，当我们new一个构造函数，得
+      
+    
+    </summary>
+    
+    
+    
+      <category term="手写js" scheme="http://yoursite.com/tags/%E6%89%8B%E5%86%99js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>手写create</title>
+    <link href="http://yoursite.com/2020/05/13/%E6%89%8B%E5%86%99create/"/>
+    <id>http://yoursite.com/2020/05/13/%E6%89%8B%E5%86%99create/</id>
+    <published>2020-05-13T04:06:42.000Z</published>
+    <updated>2020-05-13T04:24:06.777Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="create方法概念"><a href="#create方法概念" class="headerlink" title="create方法概念"></a>create方法概念</h2><p>Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong>。<br>实例代码：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  isHuman: <span class="literal">false</span>,</span><br><span class="line">  printIntroduction: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>. Am I human? <span class="subst">$&#123;<span class="keyword">this</span>.isHuman&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> me = <span class="built_in">Object</span>.create(person);</span><br><span class="line"></span><br><span class="line">me.name = <span class="string">'Matthew'</span>; <span class="comment">// "name" is a property set on "me", but not on "person"</span></span><br><span class="line">me.isHuman = <span class="literal">true</span>; <span class="comment">// inherited properties can be overwritten</span></span><br><span class="line"></span><br><span class="line">me.printIntroduction();</span><br><span class="line"><span class="comment">// expected output: "My name is Matthew. Am I human? true"</span></span><br></pre></td></tr></table></figure><blockquote><p>参考：<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create</a></p></blockquote><h2 id="手写create方法"><a href="#手写create方法" class="headerlink" title="手写create方法"></a>手写create方法</h2><p>Object.create()会将参数对象作为一个新创建的空对象的原型, 并返回这个空对象, 基于这个功能, 就有了下面这个Object.create()的手动实现: </p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.myCreate = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">O</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">    O.prototype = obj</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> O()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;create方法概念&quot;&gt;&lt;a href=&quot;#create方法概念&quot; class=&quot;headerlink&quot; title=&quot;create方法概念&quot;&gt;&lt;/a&gt;create方法概念&lt;/h2&gt;&lt;p&gt;Object.create()方法创建一个新对象，使用现有的对象来提供新创建
+      
+    
+    </summary>
+    
+    
+    
+      <category term="手写js" scheme="http://yoursite.com/tags/%E6%89%8B%E5%86%99js/"/>
+    
+  </entry>
   
   <entry>
     <title>npm常用命令</title>
@@ -45,15 +285,23 @@
     <link href="http://yoursite.com/2020/05/12/three-js%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
     <id>http://yoursite.com/2020/05/12/three-js%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/</id>
     <published>2020-05-12T12:25:42.000Z</published>
-    <updated>2020-05-12T12:26:17.670Z</updated>
+    <updated>2020-05-13T04:10:05.791Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="浏览器3D应用"><a href="#浏览器3D应用" class="headerlink" title="浏览器3D应用"></a>浏览器3D应用</h3><ol><li>WebGL及其用途<br> WebGl是一种可以应用在浏览器端的3D绘图技术，它吧JavaScript和OpenGL ES 2.0结合在一起，让我们前端开发人员可以借助显卡，在浏览器端更流畅地展示3D模<br>型，本身借助了我们html中的canvas标签来实现，<br> 编写逻辑我们可以使用JS，具体要渲染的图形，我们需要使用着色器语言GLSL ES</li><li>什么是three.js<br> three.js是JavaScript编写的WebGL第三方库。提供了非常多的3D显示功能，也是目前国内资料较多的一个3D库，18年非常火的微信小游戏 跳一跳 就是基于three.js开发的</li></ol>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;浏览器3D应用&quot;&gt;&lt;a href=&quot;#浏览器3D应用&quot; class=&quot;headerlink&quot; title=&quot;浏览器3D应用&quot;&gt;&lt;/a&gt;浏览器3D应用&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;WebGL及其用途&lt;br&gt; WebGl是一种可以应用在浏览器端的3D绘图技术，它吧Jav
+      
     
     </summary>
     
     
     
-      <category term="threeJs 前端3D" scheme="http://yoursite.com/tags/threeJs-%E5%89%8D%E7%AB%AF3D/"/>
+      <category term="threeJs" scheme="http://yoursite.com/tags/threeJs/"/>
     
   </entry>
   
@@ -62,9 +310,9 @@
     <link href="http://yoursite.com/2020/05/10/%E7%BD%91%E6%98%93%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/"/>
     <id>http://yoursite.com/2020/05/10/%E7%BD%91%E6%98%93%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/</id>
     <published>2020-05-10T15:09:57.000Z</published>
-    <updated>2020-05-11T03:29:52.493Z</updated>
+    <updated>2020-05-13T04:49:41.617Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="题目4"><a href="#题目4" class="headerlink" title="题目4"></a>题目4</h3><p><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200510231106.png" alt=""></p>]]></content>
+    <content type="html"><![CDATA[<h3 id="题目4"><a href="#题目4" class="headerlink" title="题目4"></a>题目4</h3><p><img src="http://qa2hyo53v.bkt.clouddn.com/image/20200510231106.png" alt=""><br>这道题考察的是数学，正确思路：1/67</p>]]></content>
     
     <summary type="html">
     
